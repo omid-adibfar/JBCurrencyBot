@@ -22,10 +22,14 @@ BOT_TOKEN = config('BOT_TOKEN')
 BOT_CHAT_ID = config('BOT_CHAT_ID')
 CHANNEL_CHAT_ID = config('CHANNEL_CHAT_ID')
 CHANNEL_EDITABLE_MESSAGE_ID = config('CHANNEL_EDITABLE_MESSAGE_ID', cast=int)
+UPDATE_INTERVAL = config('UPDATE_INTERVAL', cast=int)
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
 logger = get_logger()
+
+logger.debug("Bot restarted with following configs (CHANNEL_EDITABLE_MESSAGE_ID={}, UPDATE_INTERVAL={} seconds)".format(
+    CHANNEL_EDITABLE_MESSAGE_ID, UPDATE_INTERVAL))
 
 
 class Message:
@@ -110,7 +114,7 @@ def auto_update():
     try:
         sched = BackgroundScheduler()
         sched.add_job(update_prices, 'interval', args=[
-            None, ], seconds=config('UPDATE_INTERVAL', cast=int))
+            None, ], seconds=UPDATE_INTERVAL)
         sched.start()
     except Exception as e:
         logger.error('An Exception Occurred', exc_info=e)
