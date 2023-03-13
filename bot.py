@@ -64,7 +64,7 @@ def get_currency_text():
 یوان چین🇨🇳 خريد: {}🔹فروش: {}
 |
 دلار استرالیا🇦🇺 خريد: {}🔹فروش: {}
-|""".format(datetime.datetime.now().strftime("%#d %b"),  # use hyphen instead of hashtag in Unix systems to skip zero
+|""".format(datetime.datetime.now().strftime("%-d %b"),  # use hyphen/hashtag in Unix/Windows systems to skip zero
             buy_price(AED), sell_price(AED),
             buy_price(USD), sell_price(USD),
             buy_price(USDR), sell_price(USDR),
